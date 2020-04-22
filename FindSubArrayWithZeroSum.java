@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main {
+public class FindSubArrayWithZeroSum {
  public static void main(String[] args) {
   int[] arr = new int[] {
    1,
