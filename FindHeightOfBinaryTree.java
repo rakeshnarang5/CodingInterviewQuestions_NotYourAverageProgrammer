@@ -1,5 +1,3 @@
-package com.airtelbank.upiswitch;
-
 //we will need a node to create binary tree
 class Node {
 	// it has data
@@ -47,13 +45,19 @@ public class HeightOfBinaryTree {
 
 	}
 
+	// time complexity of this method is O(n)
 	private static void findHeightOfBinaryTree(Node root, int[] height, int level) {
+		// if current node is null, we return
 		if (root == null) {
 			return;
 		}
+		// if level is greater than height already seen, we set height as max
 		if (level > height[0])
 			height[0] = level;
+		// once we process current node
+		// we first move to left part of the tree
 		findHeightOfBinaryTree(root.left, height, level + 1);
+		// and then we move to the right part of the tree
 		findHeightOfBinaryTree(root.right, height, level + 1);
 	}
 
