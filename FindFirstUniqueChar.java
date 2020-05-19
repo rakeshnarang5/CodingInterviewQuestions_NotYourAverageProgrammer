@@ -1,3 +1,6 @@
+/*
+* we will use a count tracker class to store characters, it's occurrences and the last idx
+*/
 class CountTracker {
 	char character;
 	int numOccurrence;
@@ -11,6 +14,9 @@ class CountTracker {
 }
 
 class Solution {
+	/*
+    * we will take a linked hashmap -> store custom object for character in the hashmap -> if char is new, count will be new -> else count will be incremented -> at last, we will will check all the characters in the map and for the character where the count is 1, we will return the idx of that character -> else we will return -1
+    */
 	public int firstUniqChar(String s) {
 		Map < Character,
 		CountTracker > seenMap = new LinkedHashMap < >();
