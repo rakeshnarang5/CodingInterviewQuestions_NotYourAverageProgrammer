@@ -1,0 +1,97 @@
+/*
+ * given: -
+ * two sorted arrays
+ * array 1 of size n containing n elements
+ * array 2 of size n+m containing m elements
+ * elements are greater than 1
+ * 
+ * you have to: -
+ * 
+ * merge two sorted array in array 2
+ * 
+ */
+public class MergeTwoSortedArrayInConstantSpace {
+
+	public static void main(String[] args) {
+		// we will define two arrays with 10 elements each
+		// define array 1
+		int[] arr1 = new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
+		// define array 2 of size m+n i.e. 20
+		// fill elements
+		int[] arr2 = new int[20];
+		for (int i = 0; i < 10; i++) {
+			arr2[i] = ((i + 1) * 10) + 5;
+		}
+		// call merge sorted arrays method
+		mergeTwoSortedArrays(arr1, arr2);
+		// this is out expected output
+		int[] expected = new int[] { 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95 };
+		// validate the actual output with match it with expected output, if the
+		// validation is true, this code will print true
+		System.out.println("Result of MergeTwoSortedArrayInConstantSpace is: " + validateResult(arr2, expected));
+	}
+
+	/*
+	 * this method validates whether expected output is equal to actual output
+	 * basically what we do is we will validate that 0 till lastIdx and check
+	 * whether all elements are equal if they are all equal we return true, else we
+	 * will return false time complexity -> O(n+m) space complexity -> O(1)
+	 */
+	private static boolean validateResult(int[] arr2, int[] expected) {
+		boolean result = true;
+		for (int i = 0; i < expected.length; i++) {
+			if (arr2[i] != expected[i])
+				return false;
+		}
+		return result;
+	}
+
+	/*
+	 * we will start with three pointers i,j,lastIdx i -> will point to last index
+	 * of array 1 j -> will point to the idx where last element in array 2 exists
+	 * lastIdx -> will point to last idx of arr2
+	 */
+	private static void mergeTwoSortedArrays(int[] arr1, int[] arr2) {
+		int i = arr1.length - 1;
+		int j = findIdxTillArrayIsFilled(arr2);
+		int lastIdx = arr2.length - 1;
+		while (i >= 0 || j >= 0) {
+			/*
+			 * if element at i index of arr1 is greater than element at j index of arr2, we
+			 * will put arr1's i-th element at lastIdx of arr2 and decrement both i and
+			 * lastIdx
+			 */
+			/*
+			 * these (j < 0 && i >= 0) || (i >= 0 && j >= 0 && zero checks are implemented
+			 * so to avoid ArrayOutBoundsException at some point j and i will become -1 and
+			 * because of that arr1[-1] will cause an ArrayOutBoundsException
+			 */
+			if ((j < 0 && i >= 0) || (i >= 0 && j >= 0 && (arr1[i] > arr2[j]))) {
+				arr2[lastIdx] = arr1[i];
+				i--;
+				/*
+				 * else, we will put j-th element of arr2 at lastIdx of arr2 and decrement both
+				 * j and lastIdx
+				 */
+			} else if (j >= 0) {
+				arr2[lastIdx] = arr2[j];
+				j--;
+			}
+			lastIdx--;
+		}
+	}
+
+	/*
+	 * method to find the idx till which arr2 has valid elements time complexity ->
+	 * O(m) space compexity -> O(1)
+	 */
+	private static int findIdxTillArrayIsFilled(int[] arr2) {
+		for (int i = 0; i < arr2.length; i++) {
+			if (arr2[i + 1] == 0) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+}
