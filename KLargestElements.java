@@ -11,8 +11,13 @@ public class KLargestElements {
         CodingUtils.printArray(result);
     }
 
+    /*
+    1. use heap data structure
+    2. add all elements in array to heap
+    3. remove n-k elements from heap
+    4. return the remaining elements as result
+     */
     public static int[] Klargest(int[] a, int k, int n) {
-        // Write your code here
         PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
         for (int i : a) {
             priorityQueue.add(i);
